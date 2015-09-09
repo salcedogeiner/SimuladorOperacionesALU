@@ -1,0 +1,36 @@
+canvas {
+	border-radius: 0%;
+	margin: 5%;
+	border:1px solid;
+	border-color: #000;
+	background-color: rgba(63, 63, 63,0.7);
+}
+body{
+	background: #3f3f3f url(http://line25.com/wp-content/uploads/2010/webkit-flip/demo/wood-bg.png);
+	font-family: Helvetica, Arial, Sans-Serif;
+}
+h1,h2,h3,h4,h5{
+	color: white;
+	text-align: center;
+}
+.botones{
+	text-align: center;
+
+}
+select>option{
+	text-align: center;
+	padding-bottom: 5px;
+}
+.form-control{
+	padding: 0;
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+.thumbnile, .caption{
+	background-color: rgba(63, 63, 63,0.0); 
+}
+
+.thumbnile:hover, .caption:hover{
+	border-color: #000;
+	background-color: rgba(63, 63, 63,1.0); 
+}

@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Planificacion</title>
+        <meta charset="UTF-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet"href="css/style.css"/>
+    </head>
+    <body>
+
+        <div>
+            <h1>SIMULADOR DE OPERACIONES ALU</h1>
+        </div>
+
+        <div class="botones">
+            <input type="text" name="expresion" id="expresion" class="btn btn-default" placeholder="ingrese la expresion" />
+            <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:iniciar();">
+                iniciar
+            </button>
+            <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:steep();">
+                Paso a Paso
+            </button>
+            <button type="button" name="auto" id="auto" class="btn btn-default" onClick="javascript:procesoManual();">
+                play/pause
+            </button>
+        </div>
+        <div>
+            <canvas id="c" width="1100" height="1100">
+                Tu navegador no soporta canvas.
+            </canvas>
+        </div>
+
+    </body>
+    <script type="text/javascript" src="js/interfaz.js"></script>
+    <script type="text/javascript" src="js/funciones.js"></script>
+
+</html>
