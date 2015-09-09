@@ -1,4 +1,13 @@
 
+function auto() {
+    if (automatico === 0) {
+        automatico = 1;
+        start();
+    } else
+        automatico = 0;
+        procesoManual();
+}
+;
 function steep() {
     automatico = 0;
     procesoManual();
@@ -39,16 +48,17 @@ function paintQueue(titulo, x, y, queue, c) {
     }
     ;
 }
-
-
-function paint() {
-    if (automatico) {
-        calculadora.crearPostfija();
+function dibujar(){
+    calculadora.crearPostfija();
         temporizador++;
 
         if (calculadora.infija.tam() === 0 && calculadora.operadores.tam() === 0) {
-            calculadora.cpPostfija = calculadora.postfija;
-            calculadora.hallarResultado();
+            if (calculadora.cpPostfija.tam() === 0) {
+                alert("asigno");
+                calculadora.cpPostfija.cc = calculadora.postfija.getCola();
+            }else{
+               calculadora.hallarResultado(); 
+            }
         }
         //temporizador
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -74,40 +84,15 @@ function paint() {
         paintQueue("EXPRESION", 350, 100, (calculadora.expresion).getPila(), context);
 
         paintQueue("EXPRESION", 450, 100, (calculadora.resultados).getPila(), context);
+}
+
+function paint() {
+    if (automatico) {
+        dibujar();
     }
 
 } // fin de paint();
 
 function procesoManual() {
-
-    calculadora.crearPostfija();
-    temporizador++;
-    if (calculadora.infija.tam() === 0 && calculadora.operadores.tam() === 0) {
-        calculadora.hallarResultado();
-    }
-    //temporizador
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    context.font = '16pt verdana';
-    context.fillStyle = '#fff';
-    context.fillText("Tiempo: " + temporizador, 5, 20);
-
-    context.font = '16pt verdana';
-    context.fillStyle = '#fff';
-    context.fillText("Paso a paso", w - 150, 20);
-
-    //dibujar cola INFIJA
-    paintQueue("INFIJA", 50, 100, (calculadora.infija).getCola(), context);
-
-    //dibujar cola POSTFIJA
-    paintQueue("POSTFIJA", 200, 100, (calculadora.postfija).getCola(), context);
-
-    //dibujar cola OPERADORES
-    paintQueue("OPERADORES", 350, 100, (calculadora.operadores).getPila(), context);
-
-    //dibujar cola EXPRESION
-    paintQueue("EXPRESION", 500, 100, (calculadora.expresion).getPila(), context);
-
-    paintQueue("RESULTADOS", 650, 100, (calculadora.resultados).getPila(), context);
-
-}
+    dibujar();
+};

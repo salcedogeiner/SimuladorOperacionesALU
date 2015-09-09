@@ -158,8 +158,6 @@ var ALU = function () {
 
                     }
                 }
-
-                this.cpPostfija = this.postfija;
             }
         }
     }
@@ -240,13 +238,6 @@ var ALU = function () {
 //-----------------------  MAIN   ----------------------------
 //------------------------------------------------------------
 
-function auto() {
-    if (automatico === 0) {
-        automatico = 1;
-    } else
-        automatico = 0;
-}
-;
 var calculadora = new ALU();
 var canvas = document.getElementById("c");
 var context = canvas.getContext("2d");
@@ -255,11 +246,10 @@ var temporizador = 1;
 
 
 function generarArbol() {
-
     var i,
             s,
-            N = 10,
-            E = 10,
+            N = calculadora.cpPostfija.tam(),
+            E = N - 1,
             g = {
                 nodes: [],
                 edges: []
@@ -279,8 +269,8 @@ function generarArbol() {
     for (i = 0; i < E; i++)
         g.edges.push({
             id: 'e' + i,
-            source: 'n' + 1,
-            target: 'n' + 2,
+            source: 'n' + Math.random(),
+            target: 'n' + Math.random(),
             size: Math.random(),
             color: '#ccc'
         });
