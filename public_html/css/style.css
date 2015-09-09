@@ -1,6 +1,8 @@
 canvas {
+        
 	border-radius: 0%;
-	margin: 5%;
+	margin-top: 2%;
+        margin-left: 2%;
 	border:1px solid;
 	border-color: #000;
 	background-color: rgba(63, 63, 63,0.7);
