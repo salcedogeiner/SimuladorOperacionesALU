@@ -21,9 +21,10 @@ var Pila = function () {
 };
 
 var Cola = function () {  // clase que representa una cola
-
+    this.date = 0;
     this.cc = new Array();
-
+    this.cp = new Array();
+    
     this.despachar = function () { // atiende una cola
         return ((this.cc).shift());
     };
@@ -39,16 +40,25 @@ var Cola = function () {  // clase que representa una cola
     this.getCola = function () {    // retorna la cola
         return this.cc;
     };
+    
+    this.backup = function(){
+        if(this.date === 0){
+            this.cp = this.cc;
+            this.date ++;
+        }
+    }
+    
+    this.tamCp = function () {        // retorna el tamano del la cola
+        return (this.cp).length;
+    };
+    
 };
 
 var ALU = function () {
     // cola de infijo y su respectiva copia 
     this.infija = new Cola();
-
-    this.cpInfija = new Cola();
     // cola de postfijo y su respectiva copia 
     this.postfija = new Cola();
-    this.cpPostfija = new Cola();
     // pila de resolucion de operadores   
     this.operadores = new Pila();
     this.expresion = new Pila();
@@ -79,6 +89,7 @@ var ALU = function () {
             }
         }
         (this.infija).cc = arrayTemp;
+        (this.infija).backup();
     };
 
     this.evaluarPrioridad = function (p) {
@@ -246,6 +257,7 @@ var temporizador = 1;
 
 
 function generarArbol() {
+    
     var i,
             s,
             N = calculadora.cpPostfija.tam(),

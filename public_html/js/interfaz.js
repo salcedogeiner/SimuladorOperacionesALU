@@ -53,12 +53,9 @@ function dibujar(){
         temporizador++;
 
         if (calculadora.infija.tam() === 0 && calculadora.operadores.tam() === 0) {
-            if (calculadora.cpPostfija.tam() === 0) {
-                alert("asigno");
-                calculadora.cpPostfija.cc = calculadora.postfija.getCola();
-            }else{
-               calculadora.hallarResultado(); 
-            }
+                calculadora.postfija.backup();
+                alert(calculadora.postfija.tamCp());
+                calculadora.hallarResultado(); 
         }
         //temporizador
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -84,7 +81,7 @@ function dibujar(){
         paintQueue("EXPRESION", 350, 100, (calculadora.expresion).getPila(), context);
 
         paintQueue("EXPRESION", 450, 100, (calculadora.resultados).getPila(), context);
-}
+};
 
 function paint() {
     if (automatico) {
