@@ -84,7 +84,12 @@ var ALU = function () {
     this.evaluarPrioridad = function (p) {
         if (this.operadores.tam() > 0) {
             var atender = (this.operadores).despachar();
-            if (((this.prioridad).indexOf(p) <= (this.prioridad).indexOf(atender)) ||
+            if((this.prioridad).indexOf(atender)==-1){
+				(this.operadores).adicionar(atender);
+                (this.operadores).adicionar(p);
+				
+			}else{
+				if (((this.prioridad).indexOf(p) <= (this.prioridad).indexOf(atender)) ||
                     ((this.prioridad).indexOf(p) <= (this.prioridad2).indexOf(atender))
                     ) {
                 (this.postfija).adicionar(atender);
@@ -93,6 +98,8 @@ var ALU = function () {
                 (this.operadores).adicionar(atender);
                 (this.operadores).adicionar(p);
             }
+				
+			}
         } else {
             (this.operadores).adicionar(p);
         }
