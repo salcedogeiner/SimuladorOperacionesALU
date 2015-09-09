@@ -55,8 +55,8 @@ var ALU = function () {
 
     this.resultados = new Pila();
     // arraylist de signos
-    this.prioridad = new Array('=', '+', '*',  '^');
-    this.prioridad2 = new Array('', '-', '/',  '');
+    this.prioridad = new Array('=', '+', '*', '^');
+    this.prioridad2 = new Array('', '-', '/', '');
     this.operadores_ejecutar = new Array('=', '-', '+', '/', '*', '^');
 
 
@@ -84,46 +84,46 @@ var ALU = function () {
     this.evaluarPrioridad = function (p) {
         if (this.operadores.tam() > 0) {
             var atender = (this.operadores).despachar();
-            if((this.operadores_ejecutar).indexOf(atender)===-1 ){
-				(this.operadores).adicionar(atender);
-                                (this.operadores).adicionar(p);				
-			}else{
-                            var pesoactual=0;
-                            var pesop=0;                                                      
-					
-						if(this.prioridad.indexOf(p)>=0){
-							pesop=this.prioridad.indexOf(p);
-						}else{
-							pesop=this.prioridad2.indexOf(p);
-						}
-						if(this.prioridad.indexOf(atender)>=0){
-							pesoactual=this.prioridad.indexOf(atender);
-						}else{
-							pesoactual=this.prioridad2.indexOf(atender);
-						}
-						if(pesop<=pesoactual){
-							(this.postfija).adicionar(atender);
-                                                        this.evaluarPrioridad(p);
-                                                        //this.operadores).adicionar(p);					
-						}else{
-							(this.operadores).adicionar(atender);
-                                                         (this.operadores).adicionar(p);					
-						}
-					
-				
-                
-                /*
-				if (((this.prioridad).indexOf(p) <= (this.prioridad).indexOf(atender)) ||
-                    ((this.prioridad2).indexOf(p) <= (this.prioridad2).indexOf(atender))||
-                    ((this.prioridad).indexOf(p)<=(this.prioridad2).indexOf(atender))||
-                    ((this.prioridad2).indexOf(p)<=(this.prioridad).indexOf(atender))) {
-                (this.postfija).adicionar(atender);
-                (this.operadores).adicionar(p);
-            } else {
+            if ((this.operadores_ejecutar).indexOf(atender) === -1) {
                 (this.operadores).adicionar(atender);
                 (this.operadores).adicionar(p);
-            }				
-			*/}
+            } else {
+                var pesoactual = 0;
+                var pesop = 0;
+
+                if (this.prioridad.indexOf(p) >= 0) {
+                    pesop = this.prioridad.indexOf(p);
+                } else {
+                    pesop = this.prioridad2.indexOf(p);
+                }
+                if (this.prioridad.indexOf(atender) >= 0) {
+                    pesoactual = this.prioridad.indexOf(atender);
+                } else {
+                    pesoactual = this.prioridad2.indexOf(atender);
+                }
+                if (pesop <= pesoactual) {
+                    (this.postfija).adicionar(atender);
+                    this.evaluarPrioridad(p);
+                    //this.operadores).adicionar(p);					
+                } else {
+                    (this.operadores).adicionar(atender);
+                    (this.operadores).adicionar(p);
+                }
+
+
+
+                /*
+                 if (((this.prioridad).indexOf(p) <= (this.prioridad).indexOf(atender)) ||
+                 ((this.prioridad2).indexOf(p) <= (this.prioridad2).indexOf(atender))||
+                 ((this.prioridad).indexOf(p)<=(this.prioridad2).indexOf(atender))||
+                 ((this.prioridad2).indexOf(p)<=(this.prioridad).indexOf(atender))) {
+                 (this.postfija).adicionar(atender);
+                 (this.operadores).adicionar(p);
+                 } else {
+                 (this.operadores).adicionar(atender);
+                 (this.operadores).adicionar(p);
+                 }				
+                 */}
         } else {
             (this.operadores).adicionar(p);
         }
@@ -176,7 +176,7 @@ var ALU = function () {
                 resultado = parseFloat(a) - parseFloat(b);
                 break;
             case 2:
-                resultado = parseFloat(a) + parseFloat(b);				
+                resultado = parseFloat(a) + parseFloat(b);
                 //alert (resultado);
                 break;
             case 3:
@@ -189,10 +189,10 @@ var ALU = function () {
                 resultado = Math.pow(parseFloat(a), parseFloat(b));
                 break;
         }
-        
+
         return resultado;
     };
-    
+
     this.hallarResultado = function () {
         if (this.postfija.tam() > 0) {
             var siguiente = (this.postfija).despachar();
@@ -200,7 +200,7 @@ var ALU = function () {
                 var b = this.expresion.despachar();
                 var a = this.expresion.despachar();
                 var resultado = this.operar(a, b, siguiente);
-                this.expresion.adicionar(resultado);                
+                this.expresion.adicionar(resultado);
             } else {
                 this.expresion.adicionar(siguiente);
             }
@@ -253,6 +253,45 @@ var context = canvas.getContext("2d");
 var automatico = 1;
 var temporizador = 1;
 
+
+function generarArbol() {
+
+    var i,
+            s,
+            N = 10,
+            E = 10,
+            g = {
+                nodes: [],
+                edges: []
+            };
+// Generate a random graph:
+
+    for (i = 0; i < N; i++)
+        g.nodes.push({
+            id: 'n' + i,
+            label: 'Node ' + i,
+            x: Math.random(),
+            y: Math.random(),
+            size: 14,
+            color: '#b956af'
+        });
+
+    for (i = 0; i < E; i++)
+        g.edges.push({
+            id: 'e' + i,
+            source: 'n' + 1,
+            target: 'n' + 2,
+            size: Math.random(),
+            color: '#ccc'
+        });
+
+// Instantiate sigma:
+    s = new sigma({
+        graph: g,
+        container: 'graph-container'
+    });
+}
+;
 function iniciar() {
     var operacion = document.getElementById('expresion');
     calculadora.crearInfija(operacion.value);

@@ -5,7 +5,7 @@ canvas {
         margin-left: 2%;
 	border:1px solid;
 	border-color: #000;
-	background-color: rgba(63, 63, 63,0.7);
+	background-color: rgba(63, 63, 63);
 }
 body{
 	background: #3f3f3f url(http://line25.com/wp-content/uploads/2010/webkit-flip/demo/wood-bg.png);

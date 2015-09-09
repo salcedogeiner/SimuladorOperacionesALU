@@ -1,36 +1,101 @@
-<html>
-    <head>
-        <title>Planificacion</title>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet"href="css/style.css"/>
-    </head>
-    <body>
+<!-- START SIGMA IMPORTS -->
+<script src="../src/sigma.core.js"></script>
+<script src="../src/conrad.js"></script>
+<script src="../src/utils/sigma.utils.js"></script>
+<script src="../src/utils/sigma.polyfills.js"></script>
+<script src="../src/sigma.settings.js"></script>
+<script src="../src/classes/sigma.classes.dispatcher.js"></script>
+<script src="../src/classes/sigma.classes.configurable.js"></script>
+<script src="../src/classes/sigma.classes.graph.js"></script>
+<script src="../src/classes/sigma.classes.camera.js"></script>
+<script src="../src/classes/sigma.classes.quad.js"></script>
+<script src="../src/captors/sigma.captors.mouse.js"></script>
+<script src="../src/captors/sigma.captors.touch.js"></script>
+<script src="../src/renderers/sigma.renderers.canvas.js"></script>
+<script src="../src/renderers/sigma.renderers.webgl.js"></script>
+<script src="../src/renderers/sigma.renderers.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="../src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="../src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="../src/misc/sigma.misc.animation.js"></script>
+<script src="../src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+<head>
+    <title>Planificacion</title>
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
 
-        <div>
-            <h5>SIMULADOR DE OPERACIONES ALU</h5>
-        </div>
+    <div>
+        <h5>SIMULADOR DE OPERACIONES ALU</h5>
+    </div>
 
-        <div class="botones">
-            <input type="text" name="expresion" id="expresion" class="btn btn-default" placeholder="ingrese la expresion" />
-            <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:iniciar();">
-                iniciar
-            </button>
-            <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:steep();">
-                Paso a Paso
-            </button>
-            <button type="button" name="auto" id="auto" class="btn btn-default" onClick="javascript:procesoManual();">
-                play/pause
-            </button>
-        </div>
-        <div>
-            <canvas id="c" width="1230" height="600"> 
-                Tu navegador no soporta canvas.
-            </canvas>
-        </div>
+    <div class="botones">
+        <input type="text" name="expresion" id="expresion" class="btn btn-default" placeholder="ingrese la expresion" />
+        <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:iniciar();">
+            iniciar
+        </button>
+        <button type="button" name="init" id="init" class="btn btn-default" onClick="javascript:steep();">
+            Paso a Paso
+        </button>
+        <button type="button" name="auto" id="auto" class="btn btn-default" onClick="javascript:procesoManual();">
+            play/pause
+        </button>
+        <button type="button" name="auto" id="auto" class="btn btn-default" onClick="javascript:generarArbol();">
+            Generar Arbol
+        </button>
+    </div>
+    <div>
+        <canvas id="c" width="615" height="600"> 
+            Tu navegador no soporta canvas.
+        </canvas>
+    </div>
 
-    </body>
-    <script type="text/javascript" src="js/interfaz.js"></script>
-    <script type="text/javascript" src="js/funciones.js"></script>
+    <div id="container">
+        <style>
+            #graph-container {
+                width: 615px;
+                height: 600px;
+                top: 82px;
+                bottom: 0;
+                left: 630px;
+                right: 0;
+                position: absolute;
+            }
+        </style>
+        <div id="graph-container"></div>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="js/interfaz.js"></script>
+<script type="text/javascript" src="js/funciones.js"></script>
+<script>
+            /**
+             * This is a basic example on how to instantiate sigma. A random graph is
+             * generated and stored in the "graph" variable, and then sigma is instantiated
+             * directly with the graph.
+             *
+             * The simple instance of sigma is enough to make it render the graph on the on
+             * the screen, since the graph is given directly to the constructor.
+             */
+
+
+</script>
 
 </html>
+

@@ -40,34 +40,7 @@ function paintQueue(titulo, x, y, queue, c) {
     ;
 }
 
-function paintTree(c) {
-    var alto = 25;
-    var anchoP = 25;
-    for (var i = 0; i < queue.length; i++) {
-        
-        c.beginPath();
-        c.fillStyle = '#2ecc71';
-        c.rect(x, y + (i * alto), anchoP, alto);
-        c.fill();
-        c.strokeStyle = '#fff';
 
-        c.beginPath();
-        c.font = '12pt verdana';
-        c.fillStyle = '#fff';
-        c.fillText(queue[i], x + 2, (y + (2 * alto) / 3 + (i * alto)));
-
-        c.beginPath();
-        c.font = '12pt verdana';
-        c.fillStyle = '#fff';
-        c.fillText(titulo, x + 10, y - 12);
-
-        c.beginPath();
-        c.rect(x, y + (i * alto), anchoP, alto);
-        c.stroke();
-
-    }
-    ;
-}
 function paint() {
     if (automatico) {
         calculadora.crearPostfija();
