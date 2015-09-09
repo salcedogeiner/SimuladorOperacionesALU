@@ -53,9 +53,11 @@ function dibujar(){
         temporizador++;
 
         if (calculadora.infija.tam() === 0 && calculadora.operadores.tam() === 0) {
+            if(calculadora.postfija.date == 0){
                 calculadora.postfija.backup();
-                alert(calculadora.postfija.tamCp());
-                calculadora.hallarResultado(); 
+            }
+            
+            calculadora.hallarResultado(); 
         }
         //temporizador
         context.clearRect(0, 0, canvas.width, canvas.height);

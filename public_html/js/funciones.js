@@ -23,10 +23,14 @@ var Pila = function () {
 var Cola = function () {  // clase que representa una cola
     this.date = 0;
     this.cc = new Array();
-    this.cp = new Array();
-    
+    this.cp= new Array();
+
     this.despachar = function () { // atiende una cola
         return ((this.cc).shift());
+    };
+    
+    this.despacharCp = function () { // atiende una cola
+        return ((this.cp).shift());
     };
 
     this.adicionar = function (p) { // adiciona una cola
@@ -40,18 +44,16 @@ var Cola = function () {  // clase que representa una cola
     this.getCola = function () {    // retorna la cola
         return this.cc;
     };
-    
-    this.backup = function(){
-        if(this.date === 0){
-            this.cp = this.cc;
-            this.date ++;
-        }
-    }
-    
+
+    this.backup = function () {
+        this.cp = this.cc.slice(0);
+        this.date++;
+    };
+
     this.tamCp = function () {        // retorna el tamano del la cola
         return (this.cp).length;
     };
-    
+
 };
 
 var ALU = function () {
@@ -257,35 +259,48 @@ var temporizador = 1;
 
 
 function generarArbol() {
-    
     var i,
             s,
-            N = calculadora.cpPostfija.tam(),
-            E = N - 1,
-            g = {
-                nodes: [],
-                edges: []
-            };
+            N = calculadora.postfija.tamCp(),
+            E = calculadora.postfija.tamCp() - 1,
+            g = {nodes: [], edges: []};
 // Generate a random graph:
-
-    for (i = 0; i < N; i++)
+    var x1 = 0, y1 = 300, ar = 0, i = 0;
+    while((calculadora.postfija).tamCp() > 0) {
+        var siguiente = calculadora.postfija.despacharCp();
+        if (!(isNaN(siguiente))) {
+            x1 += 15;
+        } else {
+            x1 -= 7;
+            y1 -= 10;
+            g.edges.push({
+                id: 'e' + ar,
+                source: 'n' + i,
+                target: 'n' + (i-1),
+                size: 5,
+                color: '#ccc'
+            });
+            ar++;
+            g.edges.push({
+                id: 'e' + ar,
+                source: 'n' + i,
+                target: 'n' + (i-2),
+                size: 10,
+                color: '#ccc'
+            });
+            ar++;
+        }
         g.nodes.push({
             id: 'n' + i,
-            label: 'Node ' + i,
-            x: Math.random(),
-            y: Math.random(),
-            size: 14,
+            label: siguiente,
+            x: x1,
+            y: y1,
+            size: 5,
             color: '#b956af'
         });
+        i++;
+    }
 
-    for (i = 0; i < E; i++)
-        g.edges.push({
-            id: 'e' + i,
-            source: 'n' + Math.random(),
-            target: 'n' + Math.random(),
-            size: Math.random(),
-            color: '#ccc'
-        });
 
 // Instantiate sigma:
     s = new sigma({
