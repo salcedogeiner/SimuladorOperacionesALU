@@ -7,6 +7,16 @@ canvas {
 	border-color: #000;
 	background-color: rgba(63, 63, 63);
 }
+
+#graph-container {
+                width: 615px;
+                height: 600px;
+                top: 82px;
+                bottom: 0;
+                left: 630px;
+                right: 0;
+                position: absolute;
+            }
 body{
 	background: #3f3f3f url(http://line25.com/wp-content/uploads/2010/webkit-flip/demo/wood-bg.png);
 	font-family: Helvetica, Arial, Sans-Serif;

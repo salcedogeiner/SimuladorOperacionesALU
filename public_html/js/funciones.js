@@ -1,6 +1,5 @@
 
 var Pila = function () {
-
     this.pp = new Array();
 
     this.despachar = function () { // atiende una pila
@@ -23,12 +22,12 @@ var Pila = function () {
 var Cola = function () {  // clase que representa una cola
     this.date = 0;
     this.cc = new Array();
-    this.cp= new Array();
+    this.cp = new Array();
 
     this.despachar = function () { // atiende una cola
         return ((this.cc).shift());
     };
-    
+
     this.despacharCp = function () { // atiende una cola
         return ((this.cp).shift());
     };
@@ -53,7 +52,6 @@ var Cola = function () {  // clase que representa una cola
     this.tamCp = function () {        // retorna el tamano del la cola
         return (this.cp).length;
     };
-
 };
 
 var ALU = function () {
@@ -70,28 +68,54 @@ var ALU = function () {
     this.prioridad = new Array('=', '+', '*', '^');
     this.prioridad2 = new Array('', '-', '/', '');
     this.operadores_ejecutar = new Array('=', '-', '+', '/', '*', '^');
-
+    this.letras = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    
+    this.esLetra = function(l){
+        if (this.letras.indexOf(l) !== -1){
+            return 1;
+        }else return 0;
+    };
 
     this.crearInfija = function (p) {
         var arrayTemp = new Array();
         var max = p.length;
         for (var i = 0; i < max; i++) {
-            if (!(isNaN(p.charAt(i))) && i !== 0) {
+            if (!(isNaN(p.charAt(i))) && i !== 0) { // valida si es un numero o si no esta en la primera posicion
                 var numeros = arrayTemp.pop();
-                if (!(isNaN(numeros))) {
-                    var numeros = numeros + (p.charAt(i));
-                    arrayTemp.push(numeros);
+                if (!(isNaN(numeros))) {            //valida si el ultimo elemento de la cola temporal es un numero
+                    var numeros = numeros + (p.charAt(i)); // si es un numero lo concatena
+                    arrayTemp.push(numeros);            // lo anade a la cola
                 } else {
                     arrayTemp.push((numeros));
                     arrayTemp.push((p.charAt(i)));
                 }
             } else {
-                arrayTemp.push((p.charAt(i)));
-
+                arrayTemp.push((p.charAt(i)));  // si no es un numero lo anade a la cola
             }
         }
-        (this.infija).cc = arrayTemp;
-        (this.infija).backup();
+        (this.infija).cc = arrayTemp;   // crea la cola infija
+        (this.infija).backup();         // crea una copia en cp
+    };
+
+    this.crearInfija2 = function (p) {
+        var arrayTemp = new Array();
+        var max = p.length;
+        for (var i = 0; i < max; i++) {
+            if (this.esLetra(p.charAt(i)) && i !== 0) { // valida si es una letra o si no esta en la primera posicion
+                var letra = arrayTemp.pop();
+                if (this.esLetra(p.charAt(i))) {            //valida si el ultimo elemento de la cola temporal es una letra
+                    var letra = letra + (p.charAt(i)); // si es un letra lo concatena
+                    arrayTemp.push(letra);            // lo anade a la cola
+                } else {
+                    arrayTemp.push((letra));
+                    arrayTemp.push((p.charAt(i)));
+                }
+            } else {
+                arrayTemp.push((p.charAt(i)));  // si no es un letra lo anade a la cola
+            }
+        }
+        (this.infija).cc = arrayTemp;   // crea la cola infija
+        (this.infija).backup();         // crea una copia en cp
     };
 
     this.evaluarPrioridad = function (p) {
@@ -122,26 +146,45 @@ var ALU = function () {
                     (this.operadores).adicionar(atender);
                     (this.operadores).adicionar(p);
                 }
-
-
-
-                /*
-                 if (((this.prioridad).indexOf(p) <= (this.prioridad).indexOf(atender)) ||
-                 ((this.prioridad2).indexOf(p) <= (this.prioridad2).indexOf(atender))||
-                 ((this.prioridad).indexOf(p)<=(this.prioridad2).indexOf(atender))||
-                 ((this.prioridad2).indexOf(p)<=(this.prioridad).indexOf(atender))) {
-                 (this.postfija).adicionar(atender);
-                 (this.operadores).adicionar(p);
-                 } else {
-                 (this.operadores).adicionar(atender);
-                 (this.operadores).adicionar(p);
-                 }				
-                 */}
+            }
         } else {
             (this.operadores).adicionar(p);
         }
     };
+    
+    this.crearPostfija2 = function () {
+        if (this.infija.tam() > 0 || this.operadores.tam() > 0) {
+            siguiente = (this.infija).despachar();
+            if (this.esLetra(p.charAt(i))) {
+                this.postfija.adicionar(siguiente);
+            } else {
+                if (((this.prioridad).indexOf(siguiente) > 0) ||
+                        ((this.prioridad2).indexOf(siguiente) > 0)) {
+                    this.evaluarPrioridad(siguiente);
+                } else if (siguiente === "(") { // revisar si ingreso un parentesis abierto
+                    (this.operadores).adicionar(siguiente);
+                } else if (siguiente === ")") {// revisar si ingreso un parentesis cerrado
+                    var cerrado = 1;
+                    var operadorTemp;
+                    while (cerrado) {
+                        operadorTemp = (this.operadores).despachar();
+                        if (operadorTemp === "(") {
+                            cerrado = 0;
+                        } else {
+                            (this.postfija).adicionar(operadorTemp);
+                        }
+                    }
+                } else {
+                    if (this.operadores.tam() > 0) {
+                        var temp = (this.operadores).despachar();
+                        (this.postfija).adicionar(temp);
 
+                    }
+                }
+            }
+        }
+    }
+    ;
 
     this.crearPostfija = function () {
         if (this.infija.tam() > 0 || this.operadores.tam() > 0) {
@@ -149,7 +192,8 @@ var ALU = function () {
             if (!(isNaN(siguiente))) {
                 this.postfija.adicionar(siguiente);
             } else {
-                if (((this.prioridad).indexOf(siguiente) > 0) || ((this.prioridad2).indexOf(siguiente) > 0)) {
+                if (((this.prioridad).indexOf(siguiente) > 0) ||
+                        ((this.prioridad2).indexOf(siguiente) > 0)) {
                     this.evaluarPrioridad(siguiente);
                 } else if (siguiente === "(") { // revisar si ingreso un parentesis abierto
                     (this.operadores).adicionar(siguiente);
@@ -219,34 +263,6 @@ var ALU = function () {
     };
 };
 
-
-
-
-/*function formato_numero(numero){ // v2007-08-06
- decimales = 2;
- separador_decimal = ",";
- separador_miles = ".";
- numero=parseFloat(numero);
- if(isNaN(numero)){
- return "";
- }
- if(decimales!==undefined){
- // Redondeamos
- numero=numero.toFixed(decimales);
- }
- // Convertimos el punto en separador_decimal
- numero=numero.toString().replace(".", separador_decimal!==undefined ? separador_decimal : ",");
- if(separador_miles){
- // Añadimos los separadores de miles
- var miles=new RegExp("(-?[0-9]+)([0-9]{3})");
- while(miles.test(numero)) {
- numero=numero.replace(miles, "$1" + separador_miles + "$2");
- }
- }
- return numero;
- };*/
-
-
 //------------------------------------------------------------
 //-----------------------  MAIN   ----------------------------
 //------------------------------------------------------------
@@ -264,9 +280,10 @@ function generarArbol() {
             N = calculadora.postfija.tamCp(),
             E = calculadora.postfija.tamCp() - 1,
             g = {nodes: [], edges: []};
-// Generate a random graph:
-    var x1 = 0, y1 = 300, ar = 0, i = 0;
-    while((calculadora.postfija).tamCp() > 0) {
+    // Generate a random graph:
+    var x1 = 0, y1 = 300, ar = 0, i = 0, siz = 500;
+
+    while ((calculadora.postfija).tamCp() > 0) {
         var siguiente = calculadora.postfija.despacharCp();
         if (!(isNaN(siguiente))) {
             x1 += 15;
@@ -276,18 +293,17 @@ function generarArbol() {
             g.edges.push({
                 id: 'e' + ar,
                 source: 'n' + i,
-                target: 'n' + (i-1),
-                size: 5,
+                target: 'n' + (i - 1),
+                size: 10,
                 color: '#ccc'
             });
             ar++;
             g.edges.push({
                 id: 'e' + ar,
                 source: 'n' + i,
-                target: 'n' + (i-2),
+                target: 'n' + (i - 2),
                 size: 10,
-                color: '#ccc'
-            });
+                color: '#ccc'});
             ar++;
         }
         g.nodes.push({
@@ -295,24 +311,22 @@ function generarArbol() {
             label: siguiente,
             x: x1,
             y: y1,
-            size: 5,
+            size: siz,
             color: '#b956af'
         });
         i++;
     }
 
-
-// Instantiate sigma:
+    // Instantiate sigma:
     s = new sigma({
         graph: g,
         container: 'graph-container'
     });
 }
 ;
-function iniciar() {
+function iniciar( ) {
     var operacion = document.getElementById('expresion');
     calculadora.crearInfija(operacion.value);
     start();
-
 }
 ;

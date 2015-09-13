@@ -56,7 +56,6 @@ function dibujar(){
             if(calculadora.postfija.date == 0){
                 calculadora.postfija.backup();
             }
-            
             calculadora.hallarResultado(); 
         }
         //temporizador
